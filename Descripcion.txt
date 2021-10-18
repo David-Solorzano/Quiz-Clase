@@ -1,0 +1,11 @@
+El problema que existía anteriormente era que las transacciones específicas del agente se hacían utilizando las variables internas de la clase del agente y el test no era capaz de modificarlas por lo que se mantenían fijas durante toda la simulación.
+
+Para arreglarlo simplemente es necesario hacer que ahora estos datos sean enviados a través de un mailbox. La forma más fácil de hacerlo es creando una nueva clase para el paquete que se envía entre el test y el agente y utilizarla donde antes se utilizaba la instrucción.
+
+Con esto definido se creo un nuevo paquete en interface_transactions y se cambió el tipo que utilizaba el mailbox que comunicaba con el agente. Luego se cambió el test y el agente para utilizar los valores del paquete en lugar de las variables de la clase.
+
+Para confirmar que funcionara se cambio el test para que realizar 4 operaciones específicas. La primera escribiendo 0x5555, la segunda 0xA y la tercera y cuarta FF. Al correr se puede observar que el driver imprimía estas 4 transacciones por lo que funcionó correctamente.
+
+Los comandos para simular es:
+source comando.sh  
+./salida

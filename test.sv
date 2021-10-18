@@ -39,6 +39,7 @@ class test #(parameter width = 16, parameter depth =8);
     fork
       ambiente_inst.run();
     join_none
+
     instr_agent = new();
     
     instr_agent.ret_spec = 3;
@@ -49,6 +50,7 @@ class test #(parameter width = 16, parameter depth =8);
     $display("[%g]  Test: Enviada la tercera instruccion al agente transaccion_específica",$time);
 
 
+    instr_agent = new();
     instr_agent.ret_spec = 8;
     instr_agent.tipo_instruccion = trans_especifica;
     instr_agent.dto_spec = 16'hA;
@@ -56,6 +58,7 @@ class test #(parameter width = 16, parameter depth =8);
     test_agent_mbx.put(instr_agent);
     $display("[%g]  Test: Enviada la tercera instruccion al agente transaccion_específica",$time);
 
+    instr_agent = new();
     instr_agent.ret_spec = 10;
     instr_agent.tipo_instruccion = trans_especifica;
     instr_agent.dto_spec = 16'hFF;
@@ -63,6 +66,7 @@ class test #(parameter width = 16, parameter depth =8);
     test_agent_mbx.put(instr_agent);
     $display("[%g]  Test: Enviada la tercera instruccion al agente transaccion_específica",$time);
 
+    instr_agent = new();
     instr_agent.ret_spec = 10;
     instr_agent.tipo_instruccion = trans_especifica;
     instr_agent.dto_spec = 16'hFF;

@@ -15,7 +15,7 @@ class agent #(parameter width = 16, parameter depth = 8);
   int ret_spec;
   tipo_trans tpo_spec; 
   bit [width-1:0] dto_spec;
-  instrucciones_agente instruccion;      // para guardar la última instruccion leída
+  instrucciones_agente_pkg #(.width(width)) instruccion;      // para guardar la última instruccion leída
   trans_fifo #(.width(width)) transaccion;
    
   function new;
@@ -30,7 +30,7 @@ class agent #(parameter width = 16, parameter depth = 8);
       if(test_agent_mbx.num() > 0)begin
         $display("[%g]  Agente: se recibe instruccion",$time);
         test_agent_mbx.get(instruccion);
-        case(instruccion)
+        case(instruccion.tipo_instruccion)
           llenado_aleatorio: begin  // Esta instruccion genera num_tranacciones escrituras seguidas del mismo número de lecturas
             for(int i = 0; i < num_transacciones;i++) begin
               transaccion =new;
@@ -59,9 +59,10 @@ class agent #(parameter width = 16, parameter depth = 8);
           end
           trans_especifica: begin  // Esta instrucción genera una transacción específica
             transaccion =new;
-            transaccion.tipo = tpo_spec;
-            transaccion.dato = dto_spec;
-            transaccion.retardo = ret_spec;
+	    $display("Tipo = %s", instruccion.tpo_spec);
+            transaccion.tipo = instruccion.tpo_spec;
+            transaccion.dato = instruccion.dto_spec;
+            transaccion.retardo = instruccion.ret_spec;
             transaccion.print("Agente: transacción creada");
             agnt_drv_mbx.put(transaccion);
           end

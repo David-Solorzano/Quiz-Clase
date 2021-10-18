@@ -100,15 +100,16 @@ class trans_sb #(parameter width=16);
   endfunction
 endclass
 
+/////////////////////////////////////////////////////////////////////////
+// Definición de estructura para generar comandos hacia el agente      //
+/////////////////////////////////////////////////////////////////////////
+typedef enum {llenado_aleatorio,trans_aleatoria,trans_especifica,sec_trans_aleatorias} instrucciones_agente;
 
 class instrucciones_agente_pkg #(parameter width =16);
   instrucciones_agente tipo_instruccion;
   int ret_spec;
   tipo_trans tpo_spec;
   bit [width-1:0] dto_spec;
-  function new();
-
-  endfunction
 endclass
 
 /////////////////////////////////////////////////////////////////////////
@@ -116,10 +117,7 @@ endclass
 /////////////////////////////////////////////////////////////////////////
 typedef enum {retardo_promedio,reporte} solicitud_sb;
 
-/////////////////////////////////////////////////////////////////////////
-// Definición de estructura para generar comandos hacia el agente      //
-/////////////////////////////////////////////////////////////////////////
-typedef enum {llenado_aleatorio,trans_aleatoria,trans_especifica,sec_trans_aleatorias} instrucciones_agente;
+
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // Definicion de mailboxes de tipo definido trans_fifo para comunicar las interfaces //
@@ -139,4 +137,4 @@ typedef mailbox #(solicitud_sb) comando_test_sb_mbx;
 ///////////////////////////////////////////////////////////////////////////////////////
 // Definicion de mailboxes de tipo definido trans_fifo para comunicar las interfaces //
 ///////////////////////////////////////////////////////////////////////////////////////
-typedef mailbox #(instrucciones_agente_pkg #(.width(width))) comando_test_agent_mbx;
+typedef mailbox #(instrucciones_agente_pkg) comando_test_agent_mbx;
